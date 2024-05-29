@@ -6,31 +6,29 @@
     android:padding="8dp">
 
     <EditText
-        android:id="@+id/alphaEditText"
+        android:id="@+id/editTextAlpha"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:inputType="numberDecimal"
-        android:hint="Enter alpha" />
+        android:hint="Alpha" />
+
     <EditText
-        android:id="@+id/minEditText"
+        android:id="@+id/editTextMin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:inputType="number"
-        android:hint="Enter min" />
+        android:hint="Min" />
+
     <EditText
-        android:id="@+id/maxEditText"
+        android:id="@+id/editTextMax"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:inputType="number"
-        android:hint="Enter max" />
+        android:hint="Max" />
 
     <ImageButton
         android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_delete" />
-
 </LinearLayout>
