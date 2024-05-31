@@ -1,16 +1,21 @@
 package com.example.fuzzy_numbers
 
-
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
+import com.example.fuzzy_numbers.bottom.BottomViewPagerAdapter
+import com.example.fuzzy_numbers.data.FuzzyNumberViewModel
+import com.example.fuzzy_numbers.top.TopViewPagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var viewModel: FuzzyNumberViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,16 +26,18 @@ class MainActivity : AppCompatActivity() {
         val viewPagerTop = findViewById<ViewPager2>(R.id.viewPagerTop)
         val viewPagerBottom = findViewById<ViewPager2>(R.id.viewPagerBottom)
 
-        // Set up ViewPagers with Adapters
-        viewPagerTop.adapter = ViewPagerAdapter(this)
+        viewPagerTop.adapter = TopViewPagerAdapter(this)
         viewPagerBottom.adapter = BottomViewPagerAdapter(this)
 
-        // Link the TabLayout and the ViewPager2 for top ViewPager
         TabLayoutMediator(topTabLayout, viewPagerTop) { tab, position ->
-            tab.text = "Top Tab ${(position + 1)}"
+            tab.text = when (position) {
+                0 -> "Table 1"
+                1 -> "Table 2"
+                2 -> "Table 3"
+                else -> ""
+            }
         }.attach()
 
-        // Link the TabLayout and the ViewPager2 for bottom ViewPager
         TabLayoutMediator(bottomTabLayout, viewPagerBottom) { tab, position ->
             tab.text = when (position) {
                 0 -> "Операции"

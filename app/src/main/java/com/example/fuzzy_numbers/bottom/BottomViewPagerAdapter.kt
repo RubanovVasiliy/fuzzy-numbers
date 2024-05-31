@@ -1,4 +1,4 @@
-package com.example.fuzzy_numbers
+package com.example.fuzzy_numbers.bottom
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
