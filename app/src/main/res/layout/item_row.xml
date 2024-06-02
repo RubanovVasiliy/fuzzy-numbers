@@ -5,7 +5,7 @@
     android:orientation="horizontal"
     android:padding="8dp">
 
-    <EditText
+    <TextView
         android:id="@+id/alphaEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

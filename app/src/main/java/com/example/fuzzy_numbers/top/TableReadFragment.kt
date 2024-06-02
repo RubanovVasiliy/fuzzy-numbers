@@ -16,23 +16,20 @@ class TableReadFragment : Fragment() {
 
     private lateinit var viewModel: FuzzyNumberViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_table_edit, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(requireActivity()).get(FuzzyNumberViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity())[FuzzyNumberViewModel::class.java]
 
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel.fuzzyNumbers.observe(viewLifecycleOwner, Observer { list ->
-            val adapter = TableReadAdapter(list[1].values)
+            val adapter = TableReadAdapter(list[2].values)
             recyclerView.adapter = adapter
         })
     }

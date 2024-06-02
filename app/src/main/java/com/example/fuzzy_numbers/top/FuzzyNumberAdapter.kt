@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fuzzy_numbers.R
 
@@ -17,13 +18,13 @@ class FuzzyNumberAdapter(
 ) : RecyclerView.Adapter<FuzzyNumberAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val alphaEditText: EditText = itemView.findViewById(R.id.alphaEditText)
+        val alphaEditText: TextView = itemView.findViewById(R.id.alphaEditText)
         val minEditText: EditText = itemView.findViewById(R.id.minEditText)
         val maxEditText: EditText = itemView.findViewById(R.id.maxEditText)
         val deleteButton: ImageButton = itemView.findViewById(R.id.deleteButton)
 
         fun bind(alpha: Double, minMax: Pair<Int, Int>) {
-            alphaEditText.setText(alpha.toString())
+            alphaEditText.text = alpha.toString()
             minEditText.setText(minMax.first.toString())
             maxEditText.setText(minMax.second.toString())
 
@@ -46,7 +47,6 @@ class FuzzyNumberAdapter(
                     if (s.isNullOrEmpty()) return
                     val min = s.toString().toIntOrNull()
                     if (min != null && alphaEditText.text.isNotEmpty() && maxEditText.text.isNotEmpty()) {
-                        val alpha = alphaEditText.text.toString().toDouble()
                         val max = maxEditText.text.toString().toInt()
                         onItemChanged(alpha, min, max)
                     }
@@ -60,7 +60,6 @@ class FuzzyNumberAdapter(
                     if (s.isNullOrEmpty()) return
                     val max = s.toString().toIntOrNull()
                     if (max != null && alphaEditText.text.isNotEmpty() && minEditText.text.isNotEmpty()) {
-                        val alpha = alphaEditText.text.toString().toDouble()
                         val min = minEditText.text.toString().toInt()
                         onItemChanged(alpha, min, max)
                     }

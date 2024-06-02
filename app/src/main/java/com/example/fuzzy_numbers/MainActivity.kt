@@ -31,9 +31,9 @@ class MainActivity : AppCompatActivity() {
 
         TabLayoutMediator(topTabLayout, viewPagerTop) { tab, position ->
             tab.text = when (position) {
-                0 -> "Table 1"
-                1 -> "Table 2"
-                2 -> "Table 3"
+                0 -> "Число A"
+                1 -> "Число B"
+                2 -> "Результат"
                 else -> ""
             }
         }.attach()

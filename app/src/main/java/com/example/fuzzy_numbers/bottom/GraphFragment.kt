@@ -12,10 +12,7 @@ import com.example.fuzzy_numbers.R
 
 class GraphFragment : Fragment() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_graph, container, false)
 
         val buttonBuild = view.findViewById<Button>(R.id.buttonBuild)
