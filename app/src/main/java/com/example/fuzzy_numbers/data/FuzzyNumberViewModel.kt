@@ -55,7 +55,7 @@ class FuzzyNumberViewModel : ViewModel() {
             return 2
 
         Calculator.performOperation(operation, currentList[0], currentList[1], currentList[2])
-        updateFuzzyNumbers() // Добавлен вызов updateFuzzyNumbers()
+        updateFuzzyNumbers()
         return 0
     }
 }

@@ -1,5 +1,6 @@
 package com.example.fuzzy_numbers.top
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,8 +36,9 @@ class TableReadAdapter(private var values: List<Slice>) : RecyclerView.Adapter<T
         return values.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateData(newValues: List<Slice>) {
         values = newValues
-        this.notifyDataSetChanged()
+        notifyDataSetChanged()
     }
 }

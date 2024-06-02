@@ -1,6 +1,6 @@
 package com.example.fuzzy_numbers.bottom
 
-
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.fuzzy_numbers.GraphActivity
 import com.example.fuzzy_numbers.R
 
 class GraphFragment : Fragment() {
@@ -19,7 +20,8 @@ class GraphFragment : Fragment() {
         val buttonExchange = view.findViewById<Button>(R.id.buttonExchange)
 
         buttonBuild.setOnClickListener {
-            Toast.makeText(activity, "Clicked: Построить", Toast.LENGTH_SHORT).show()
+            val intent = Intent(activity, GraphActivity::class.java)
+            startActivity(intent)
         }
 
         buttonExchange.setOnClickListener {

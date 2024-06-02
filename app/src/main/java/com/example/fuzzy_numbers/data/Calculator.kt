@@ -1,5 +1,7 @@
 package com.example.fuzzy_numbers.data
 
+import java.math.RoundingMode
+
 class Calculator {
 
 /*    private fun setupChart(chart: LineChart) {
@@ -24,6 +26,10 @@ class Calculator {
 
     companion object {
 
+        private fun format(value: Double): Double{
+            return value.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
+        }
+
         fun performOperation(operation: Operation, numberA: FuzzyNumber, numberB: FuzzyNumber, result: FuzzyNumber) {
 
             val commonAlphaLevels = (numberA.values.map { it.alpha } + numberB.values.map { it.alpha }).distinct().sorted()
@@ -36,21 +42,22 @@ class Calculator {
                 }
 
                 Operation.SUBTRACT -> alignedA.zip(alignedB) { a, b ->
-                    Slice(a.alpha, a.min - b.min, a.max - b.max)
+                    Slice(a.alpha, format(a.min - b.min), format(a.max - b.max))
                 }
 
                 Operation.MULTIPLY -> alignedA.zip(alignedB) { a, b ->
-                    Slice(a.alpha, a.min * b.min, a.max * b.max)
+                    Slice(a.alpha, format(a.min * b.min), format(a.max * b.max))
                 }
 
                 Operation.DIVIDE -> alignedA.zip(alignedB) { a, b ->
-                    Slice(a.alpha, a.min / b.min, a.max / b.max)
+                    Slice(a.alpha, format(a.min / b.min), format(a.max / b.max))
                 }
             }
         }
 
         private fun interpolate(alpha1: Double, alpha2: Double, val1: Double, val2: Double, alpha: Double): Double {
-            return val1 + (val2 - val1) * ((alpha - alpha1) / (alpha2 - alpha1))
+            return (val1 + (val2 - val1) * ((alpha - alpha1) / (alpha2 - alpha1)))
+                .toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
         }
 
         private fun alignAlphaLevels(numbers: List<Slice>, commonAlphaLevels: List<Double>): List<Slice> {
@@ -110,6 +117,8 @@ class Calculator {
     enum class Operation {
         ADD, SUBTRACT, MULTIPLY, DIVIDE
     }
+
+
 }
 
 
