@@ -11,7 +11,10 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:hint="Alpha"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal"
+        android:textColor="?attr/editTextColor"
+        android:gravity="center_vertical"
+        android:textAppearance="?android:attr/textAppearanceMediumInverse" />
 
     <EditText
         android:id="@+id/minEditText"

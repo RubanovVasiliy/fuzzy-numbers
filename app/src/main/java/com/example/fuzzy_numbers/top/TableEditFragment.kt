@@ -17,8 +17,8 @@ import com.example.fuzzy_numbers.data.FuzzyNumber
 import com.example.fuzzy_numbers.data.FuzzyNumberViewModel
 import com.google.android.material.snackbar.Snackbar
 
-
 class TableEditFragment : Fragment() {
+
     private lateinit var viewModel: FuzzyNumberViewModel
     private var tableIndex: Int = 0
 
@@ -31,7 +31,7 @@ class TableEditFragment : Fragment() {
 
         viewModel = ViewModelProvider(requireActivity())[FuzzyNumberViewModel::class.java]
 
-        val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
+        val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view_edit)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         val addButton: ImageButton = view.findViewById(R.id.add_button)
@@ -40,7 +40,7 @@ class TableEditFragment : Fragment() {
         val maxEditText: EditText = view.findViewById(R.id.maxEditText)
 
         viewModel.fuzzyNumbers.observe(viewLifecycleOwner, Observer { list ->
-            val adapter = FuzzyNumberAdapter(list[tableIndex].values) { alpha, min, max ->
+            val adapter = TableEditAdapter(list[tableIndex].values) { alpha, min, max ->
                 val updatedList = list[tableIndex].values.toMutableMap()
                 updatedList[alpha] = Pair(min, max)
                 viewModel.updateFuzzyNumber(tableIndex, FuzzyNumber(list[tableIndex].name, updatedList))

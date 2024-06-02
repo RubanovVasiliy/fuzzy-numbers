@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fuzzy_numbers.R
 
 
-class FuzzyNumberAdapter(
+class TableEditAdapter(
     private val values: MutableMap<Double, Pair<Int, Int>>,
     private val onItemChanged: (Double, Int, Int) -> Unit
-) : RecyclerView.Adapter<FuzzyNumberAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<TableEditAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val alphaEditText: TextView = itemView.findViewById(R.id.alphaEditText)
@@ -76,7 +76,7 @@ class FuzzyNumberAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_row, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_row_edit, parent, false)
         return ViewHolder(view)
     }
 

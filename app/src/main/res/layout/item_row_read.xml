@@ -9,19 +9,31 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Alpha" />
+        android:text="Alpha"
+        android:textAlignment="center"
+        android:textColor="?attr/editTextColor"
+        android:gravity="center_vertical"
+        android:textAppearance="?android:attr/textAppearanceMediumInverse" />
 
     <TextView
         android:id="@+id/minTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Min" />
+        android:text="Min"
+        android:textAlignment="center"
+        android:textColor="?attr/editTextColor"
+        android:gravity="center_vertical"
+        android:textAppearance="?android:attr/textAppearanceMediumInverse" />
 
     <TextView
         android:id="@+id/maxTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Max" />
+        android:text="Max"
+        android:textAlignment="center"
+        android:textColor="?attr/editTextColor"
+        android:gravity="center_vertical"
+        android:textAppearance="?android:attr/textAppearanceMediumInverse" />
 </LinearLayout>
