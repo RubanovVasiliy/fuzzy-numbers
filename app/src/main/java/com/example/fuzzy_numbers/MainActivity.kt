@@ -31,18 +31,18 @@ class MainActivity : AppCompatActivity() {
 
         TabLayoutMediator(topTabLayout, viewPagerTop) { tab, position ->
             tab.text = when (position) {
-                0 -> "Число A"
-                1 -> "Число B"
-                2 -> "Результат"
+                0 -> "Number A"
+                1 -> "Number B"
+                2 -> "Result"
                 else -> ""
             }
         }.attach()
 
         TabLayoutMediator(bottomTabLayout, viewPagerBottom) { tab, position ->
             tab.text = when (position) {
-                0 -> "Операции"
-                1 -> "Сравнение"
-                2 -> "График"
+                0 -> "Operations"
+                1 -> "Compare"
+                2 -> "Plot"
                 else -> ""
             }
         }.attach()
