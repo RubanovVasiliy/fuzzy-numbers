@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-
 class FuzzyNumberViewModel : ViewModel() {
     private val _fuzzyNumbers = MutableLiveData<List<FuzzyNumber>>()
 
@@ -15,18 +14,18 @@ class FuzzyNumberViewModel : ViewModel() {
             FuzzyNumber(
                 "Table 1",
                 listOf(
-                    Slice(0.0,1.0,9.0),
-                    Slice(0.5,2.0,8.0),
-                    Slice(1.0,3.0,4.0),
-                    )
+                    Slice(0.0, 1.0, 9.0),
+                    Slice(0.5, 2.0, 8.0),
+                    Slice(1.0, 3.0, 4.0),
+                )
             ),
             FuzzyNumber(
                 "Table 2",
                 listOf(
-                    Slice(0.0,1.0,9.0),
-                    Slice(0.5,3.0,6.0),
-                    Slice(1.0,4.0,4.0),
-                    Slice(0.2,2.0,7.0),
+                    Slice(0.0, 1.0, 9.0),
+                    Slice(0.5, 3.0, 6.0),
+                    Slice(1.0, 4.0, 4.0),
+                    Slice(0.2, 2.0, 7.0),
                 )
             ),
             FuzzyNumber("Table 3", listOf())
@@ -34,13 +33,17 @@ class FuzzyNumberViewModel : ViewModel() {
     }
 
     fun updateFuzzyNumber(index: Int, fuzzyNumber: FuzzyNumber) {
-        val currentList = fuzzyNumbers.value?.toMutableList()
+        val currentList = _fuzzyNumbers.value?.toMutableList()
         currentList?.set(index, fuzzyNumber)
         _fuzzyNumbers.value = currentList
     }
 
-    fun calculate(operation: Calculator.Operation):Int {
-        val currentList = fuzzyNumbers.value?.toMutableList()
+    fun updateFuzzyNumbers() {
+        _fuzzyNumbers.value = _fuzzyNumbers.value
+    }
+
+    fun calculate(operation: Calculator.Operation): Int {
+        val currentList = _fuzzyNumbers.value?.toMutableList()
 
         if (currentList == null)
             return -1
@@ -52,6 +55,7 @@ class FuzzyNumberViewModel : ViewModel() {
             return 2
 
         Calculator.performOperation(operation, currentList[0], currentList[1], currentList[2])
+        updateFuzzyNumbers() // Добавлен вызов updateFuzzyNumbers()
         return 0
     }
 }

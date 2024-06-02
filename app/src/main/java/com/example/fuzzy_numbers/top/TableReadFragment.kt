@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fuzzy_numbers.R
 import com.example.fuzzy_numbers.data.FuzzyNumberViewModel
-import com.google.android.material.snackbar.Snackbar
 
 class TableReadFragment : Fragment() {
 
@@ -35,8 +33,9 @@ class TableReadFragment : Fragment() {
         recyclerView.adapter = adapter
 
         viewModel.fuzzyNumbers.observe(viewLifecycleOwner, Observer { list ->
-            if (list.isNotEmpty())
+            if (list.isNotEmpty()) {
                 adapter.updateData(list[2].values)
+            }
         })
     }
 }
