@@ -7,7 +7,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fuzzy_numbers.R
 import com.example.fuzzy_numbers.data.Slice
-import com.example.fuzzy_numbers.top.TableEditAdapter.ViewHolder
 
 class TableReadAdapter(private val values: List<Slice>) :
     RecyclerView.Adapter<TableReadAdapter.ViewHolder>() {
@@ -17,7 +16,7 @@ class TableReadAdapter(private val values: List<Slice>) :
         val minTextView: TextView = itemView.findViewById(R.id.minTextView)
         val maxTextView: TextView = itemView.findViewById(R.id.maxTextView)
 
-        fun bind(alpha: Double, minValue: Int, maxValue: Int) {
+        fun bind(alpha: Double, minValue: Double, maxValue: Double) {
             alphaTextView.text = alpha.toString()
             minTextView.text = minValue.toString()
             maxTextView.text = maxValue.toString()
@@ -31,7 +30,7 @@ class TableReadAdapter(private val values: List<Slice>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val key = values[position]
-        holder.bind(key.name, key.min, key.max)
+        holder.bind(key.alpha, key.min, key.max)
     }
 
     override fun getItemCount(): Int {

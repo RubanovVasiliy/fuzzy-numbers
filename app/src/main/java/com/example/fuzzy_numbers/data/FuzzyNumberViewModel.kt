@@ -13,18 +13,18 @@ class FuzzyNumberViewModel : ViewModel() {
             FuzzyNumber(
                 "Table 1",
                 listOf(
-                    Slice(0.0,1,9),
-                    Slice(0.5,2,8),
-                    Slice(1.0,3,4),
+                    Slice(0.0,1.0,9.0),
+                    Slice(0.5,2.0,8.0),
+                    Slice(1.0,3.0,4.0),
                     )
             ),
             FuzzyNumber(
                 "Table 2",
                 listOf(
-                    Slice(0.0,1,9),
-                    Slice(0.5,3,6),
-                    Slice(1.0,4,5),
-                    Slice(0.2,2,7),
+                    Slice(0.0,1.0,9.0),
+                    Slice(0.5,3.0,6.0),
+                    Slice(1.0,4.0,5.0),
+                    Slice(0.2,2.0,7.0),
                 )
             ),
             FuzzyNumber("Table 3", listOf())
@@ -45,7 +45,7 @@ class FuzzyNumberViewModel : ViewModel() {
         if (currentList[0].values.isEmpty()) return 1
         if (currentList[1].values.isEmpty()) return 2
 
-        //Calculator.performOperation(operation, currentList[0], currentList[1], currentList[2])
+        Calculator.performOperation(operation, currentList[0], currentList[1], currentList[2])
         return 0
     }
 }

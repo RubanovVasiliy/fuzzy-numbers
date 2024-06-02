@@ -13,7 +13,7 @@ import com.example.fuzzy_numbers.R
 import com.example.fuzzy_numbers.data.Slice
 
 
-class TableEditAdapter(private var values: List<Slice>, private val onItemChanged: (Double, Int, Int) -> Unit) : RecyclerView.Adapter<TableEditAdapter.ViewHolder>() {
+class TableEditAdapter(private var values: List<Slice>, private val onItemChanged: (Double, Double, Double) -> Unit) : RecyclerView.Adapter<TableEditAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val alphaEditText: TextView = itemView.findViewById(R.id.alphaEditText)
@@ -21,7 +21,7 @@ class TableEditAdapter(private var values: List<Slice>, private val onItemChange
         val maxEditText: EditText = itemView.findViewById(R.id.maxEditText)
         val deleteButton: ImageButton = itemView.findViewById(R.id.deleteButton)
 
-        fun bind(alpha: Double, minValue: Int,maxValue :Int) {
+        fun bind(alpha: Double, minValue: Double,maxValue :Double) {
             alphaEditText.text = alpha.toString()
             minEditText.setText(minValue.toString())
             maxEditText.setText(maxValue.toString())
@@ -31,8 +31,8 @@ class TableEditAdapter(private var values: List<Slice>, private val onItemChange
                     if (s.isNullOrEmpty()) return
                     val newAlpha = s.toString().toDoubleOrNull()
                     if (newAlpha != null && minEditText.text.isNotEmpty() && maxEditText.text.isNotEmpty()) {
-                        val min = minEditText.text.toString().toInt()
-                        val max = maxEditText.text.toString().toInt()
+                        val min = minEditText.text.toString().toDouble()
+                        val max = maxEditText.text.toString().toDouble()
                         onItemChanged(newAlpha, min, max)
                     }
                 }
@@ -43,9 +43,9 @@ class TableEditAdapter(private var values: List<Slice>, private val onItemChange
             minEditText.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
                     if (s.isNullOrEmpty()) return
-                    val min = s.toString().toIntOrNull()
+                    val min = s.toString().toDoubleOrNull()
                     if (min != null && alphaEditText.text.isNotEmpty() && maxEditText.text.isNotEmpty()) {
-                        val max = maxEditText.text.toString().toInt()
+                        val max = maxEditText.text.toString().toDouble()
                         onItemChanged(alpha, min, max)
                     }
                 }
@@ -56,9 +56,9 @@ class TableEditAdapter(private var values: List<Slice>, private val onItemChange
             maxEditText.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
                     if (s.isNullOrEmpty()) return
-                    val max = s.toString().toIntOrNull()
+                    val max = s.toString().toDoubleOrNull()
                     if (max != null && alphaEditText.text.isNotEmpty() && minEditText.text.isNotEmpty()) {
-                        val min = minEditText.text.toString().toInt()
+                        val min = minEditText.text.toString().toDouble()
                         onItemChanged(alpha, min, max)
                     }
                 }
@@ -67,7 +67,7 @@ class TableEditAdapter(private var values: List<Slice>, private val onItemChange
             })
 
             deleteButton.setOnClickListener {
-                values = values.filter { it.name != alpha }
+                values = values.filter { it.alpha != alpha }
                 notifyItemRemoved(adapterPosition)
             }
         }
@@ -80,7 +80,7 @@ class TableEditAdapter(private var values: List<Slice>, private val onItemChange
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val key = values[position]
-        holder.bind(key.name, key.min, key.max)
+        holder.bind(key.alpha, key.min, key.max)
     }
 
     override fun getItemCount(): Int {
