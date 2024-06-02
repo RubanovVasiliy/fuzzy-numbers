@@ -21,10 +21,10 @@ class TableEditAdapter(private var values: List<Slice>, private val onItemChange
         val maxEditText: EditText = itemView.findViewById(R.id.maxEditText)
         val deleteButton: ImageButton = itemView.findViewById(R.id.deleteButton)
 
-        fun bind(alpha: Double, minValue: Double,maxValue :Double) {
-            alphaEditText.text = alpha.toString()
-            minEditText.setText(minValue.toString())
-            maxEditText.setText(maxValue.toString())
+        fun bind(slice: Slice) {
+            alphaEditText.text = slice.alpha.toString()
+            minEditText.setText(slice.min.toString())
+            maxEditText.setText(slice.max.toString())
 
             alphaEditText.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
@@ -46,7 +46,7 @@ class TableEditAdapter(private var values: List<Slice>, private val onItemChange
                     val min = s.toString().toDoubleOrNull()
                     if (min != null && alphaEditText.text.isNotEmpty() && maxEditText.text.isNotEmpty()) {
                         val max = maxEditText.text.toString().toDouble()
-                        onItemChanged(alpha, min, max)
+                        onItemChanged(slice.alpha, min, max)
                     }
                 }
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -59,7 +59,7 @@ class TableEditAdapter(private var values: List<Slice>, private val onItemChange
                     val max = s.toString().toDoubleOrNull()
                     if (max != null && alphaEditText.text.isNotEmpty() && minEditText.text.isNotEmpty()) {
                         val min = minEditText.text.toString().toDouble()
-                        onItemChanged(alpha, min, max)
+                        onItemChanged(slice.alpha, min, max)
                     }
                 }
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -67,7 +67,7 @@ class TableEditAdapter(private var values: List<Slice>, private val onItemChange
             })
 
             deleteButton.setOnClickListener {
-                values = values.filter { it.alpha != alpha }
+                values = values.filter { it.alpha != slice.alpha }
                 notifyItemRemoved(adapterPosition)
             }
         }
@@ -79,8 +79,7 @@ class TableEditAdapter(private var values: List<Slice>, private val onItemChange
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val key = values[position]
-        holder.bind(key.alpha, key.min, key.max)
+        holder.bind(values[position])
     }
 
     override fun getItemCount(): Int {

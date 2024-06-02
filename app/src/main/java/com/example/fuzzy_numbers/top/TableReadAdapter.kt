@@ -8,18 +8,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fuzzy_numbers.R
 import com.example.fuzzy_numbers.data.Slice
 
-class TableReadAdapter(private val values: List<Slice>) :
-    RecyclerView.Adapter<TableReadAdapter.ViewHolder>() {
+class TableReadAdapter(private var values: List<Slice>) : RecyclerView.Adapter<TableReadAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val alphaTextView: TextView = itemView.findViewById(R.id.alphaTextView)
         val minTextView: TextView = itemView.findViewById(R.id.minTextView)
         val maxTextView: TextView = itemView.findViewById(R.id.maxTextView)
 
-        fun bind(alpha: Double, minValue: Double, maxValue: Double) {
-            alphaTextView.text = alpha.toString()
-            minTextView.text = minValue.toString()
-            maxTextView.text = maxValue.toString()
+        fun bind(slice: Slice) {
+            alphaTextView.text = slice.alpha.toString()
+            minTextView.text = slice.min.toString()
+            maxTextView.text = slice.max.toString()
         }
     }
 
@@ -29,11 +28,15 @@ class TableReadAdapter(private val values: List<Slice>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val key = values[position]
-        holder.bind(key.alpha, key.min, key.max)
+        holder.bind(values[position])
     }
 
     override fun getItemCount(): Int {
         return values.size
+    }
+
+    fun updateData(newValues: List<Slice>) {
+        values = newValues
+        this.notifyDataSetChanged()
     }
 }

@@ -28,7 +28,7 @@ class Calculator {
 
             val commonAlphaLevels = (numberA.values.map { it.alpha } + numberB.values.map { it.alpha }).distinct().sorted()
             val alignedA = alignAlphaLevels(numberA.values.sortedBy { it.alpha }, commonAlphaLevels)
-            val alignedB = alignAlphaLevels(numberA.values, commonAlphaLevels)
+            val alignedB = alignAlphaLevels(numberB.values.sortedBy { it.alpha }, commonAlphaLevels)
 
             result.values = when (operation) {
                 Operation.ADD -> alignedA.zip(alignedB) { a, b ->
@@ -63,18 +63,17 @@ class Calculator {
                     val idx = alphaLevels.indexOf(alpha)
                     aligned.add(numbers[idx])
                 } else {
-                    // Найти два уровня альфа, между которыми нужно интерполировать
-                    for (i in 0 until commonAlphaLevels.size - 1) {
-                        if (commonAlphaLevels[i] < alpha && alpha < commonAlphaLevels[i + 1]) {
-                            val lowerAlpha = commonAlphaLevels[i]
-                            val upperAlpha = commonAlphaLevels[i + 1]
-                            val lowerInterval = intervals[i]
-                            val upperInterval = intervals[i + 1]
+                    for (i in 0 until alphaLevels.size - 1) {
+                        if (alphaLevels[i] < alpha && alpha < alphaLevels[i + 1]) {
+                            val lowerAlpha = alphaLevels[i]
+                            val upperAlpha = alphaLevels[i + 1]
+                            val lowerInterval = numbers[i]
+                            val upperInterval = numbers[i + 1]
 
-                            val lowerBound = interpolate(lowerAlpha, upperAlpha, lowerInterval[0], upperInterval[0], alpha)
-                            val upperBound = interpolate(lowerAlpha, upperAlpha, lowerInterval[1], upperInterval[1], alpha)
+                            val lowerBound = interpolate(lowerAlpha, upperAlpha, lowerInterval.min, upperInterval.min, alpha)
+                            val upperBound = interpolate(lowerAlpha, upperAlpha, lowerInterval.max, upperInterval.max, alpha)
 
-                            aligned.add(listOf(lowerBound, upperBound))
+                            aligned.add(Slice(alpha, lowerBound, upperBound))
                             break
                         }
                     }
@@ -83,39 +82,7 @@ class Calculator {
 
             return aligned
         }
-
-
-        /*private fun alignAlphaLevels(numbers: List<Slice>, alphaLevels: List<Double>): List<Slice> {
-            val aligned = mutableListOf<Slice>()
-            for (alpha in alphaLevels) {
-                val matching = numbers.find { it.alpha == alpha }
-                if (matching != null) {
-                    aligned.add(matching)
-                } else {
-                    for ( i in alphaLevels.indices){
-                        if (alphaLevels[i] < alpha < alphaLevels[i + 1]) {
-                            lower_alpha = alpha_levels[i]
-                            upper_alpha = alpha_levels[i + 1]
-                            lower_interval = intervals[i]
-                            upper_interval = intervals[i + 1]
-
-                            lower_bound = interpolate(lower_alpha, upper_alpha, lower_interval[0], upper_interval[0], alpha)
-                            upper_bound = interpolate(lower_alpha, upper_alpha, lower_interval[1], upper_interval[1], alpha)
-
-                            interpolated_intervals.append([lower_bound, upper_bound])
-                            break
-                        }
-                    }
-
-
-
-                }
-            }
-            return aligned
-        }*/
     }
-
-
 
     /*private fun updateChart(chart: LineChart, setA: List<FuzzyNumber>, setB: List<FuzzyNumber>, result: List<FuzzyNumber>) {
         val entriesA = setA.map { Entry(it.alpha, (it.left  + it.right) / 2) }

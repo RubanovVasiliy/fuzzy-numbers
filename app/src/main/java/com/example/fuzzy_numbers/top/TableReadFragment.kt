@@ -17,6 +17,7 @@ import com.google.android.material.snackbar.Snackbar
 class TableReadFragment : Fragment() {
 
     private lateinit var viewModel: FuzzyNumberViewModel
+    private lateinit var adapter: TableReadAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_table_read, container, false)
@@ -30,9 +31,12 @@ class TableReadFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view_read)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+        adapter = TableReadAdapter(emptyList())
+        recyclerView.adapter = adapter
+
         viewModel.fuzzyNumbers.observe(viewLifecycleOwner, Observer { list ->
-            val adapter = TableReadAdapter(list[2].values)
-            recyclerView.adapter = adapter
+            if (list.isNotEmpty())
+                adapter.updateData(list[2].values)
         })
     }
 }
