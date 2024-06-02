@@ -41,8 +41,9 @@ class TableEditFragment : Fragment() {
 
         viewModel.fuzzyNumbers.observe(viewLifecycleOwner, Observer { list ->
             val adapter = TableEditAdapter(list[tableIndex].values) { alpha, min, max ->
-                val updatedList = list[tableIndex].values.toMutableMap()
-                updatedList[alpha] = Pair(min, max)
+                val updatedList = list[tableIndex].values
+                updatedList.find{it.name == alpha}?.max = max
+                updatedList.find{it.name == alpha}?.min = min
                 viewModel.updateFuzzyNumber(tableIndex, FuzzyNumber(list[tableIndex].name, updatedList))
             }
             recyclerView.adapter = adapter
@@ -69,8 +70,9 @@ class TableEditFragment : Fragment() {
 
                 val newMin = minEditText.text.toString().toInt()
                 val newMax = maxEditText.text.toString().toInt()
-                val updatedList = list[tableIndex].values.toMutableMap()
-                updatedList[newAlpha] = Pair(newMin, newMax)
+                val updatedList = list[tableIndex].values
+                updatedList.find{it.name == newAlpha}?.max = newMax
+                updatedList.find{it.name == newAlpha}?.min = newMin
                 viewModel.updateFuzzyNumber(tableIndex, FuzzyNumber(list[tableIndex].name, updatedList))
                 adapter.notifyItemInserted(updatedList.size - 1)
                 showSnackBarNotify(view,"Added", R.color.success)

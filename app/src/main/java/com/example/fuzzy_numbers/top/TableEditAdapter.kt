@@ -10,12 +10,10 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fuzzy_numbers.R
+import com.example.fuzzy_numbers.data.Slice
 
 
-class TableEditAdapter(
-    private val values: MutableMap<Double, Pair<Int, Int>>,
-    private val onItemChanged: (Double, Int, Int) -> Unit
-) : RecyclerView.Adapter<TableEditAdapter.ViewHolder>() {
+class TableEditAdapter(private var values: List<Slice>, private val onItemChanged: (Double, Int, Int) -> Unit) : RecyclerView.Adapter<TableEditAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val alphaEditText: TextView = itemView.findViewById(R.id.alphaEditText)
@@ -23,10 +21,10 @@ class TableEditAdapter(
         val maxEditText: EditText = itemView.findViewById(R.id.maxEditText)
         val deleteButton: ImageButton = itemView.findViewById(R.id.deleteButton)
 
-        fun bind(alpha: Double, minMax: Pair<Int, Int>) {
+        fun bind(alpha: Double, minValue: Int,maxValue :Int) {
             alphaEditText.text = alpha.toString()
-            minEditText.setText(minMax.first.toString())
-            maxEditText.setText(minMax.second.toString())
+            minEditText.setText(minValue.toString())
+            maxEditText.setText(maxValue.toString())
 
             alphaEditText.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
@@ -69,7 +67,7 @@ class TableEditAdapter(
             })
 
             deleteButton.setOnClickListener {
-                values.remove(alpha)
+                values = values.filter { it.name != alpha }
                 notifyItemRemoved(adapterPosition)
             }
         }
@@ -81,8 +79,8 @@ class TableEditAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val key = values.keys.elementAt(position)
-        holder.bind(key, values[key]!!)
+        val key = values[position]
+        holder.bind(key.name, key.min, key.max)
     }
 
     override fun getItemCount(): Int {

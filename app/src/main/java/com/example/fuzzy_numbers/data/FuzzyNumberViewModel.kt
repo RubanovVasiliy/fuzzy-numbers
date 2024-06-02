@@ -12,22 +12,22 @@ class FuzzyNumberViewModel : ViewModel() {
         val list = listOf(
             FuzzyNumber(
                 "Table 1",
-                mutableMapOf(
-                    0.0 to Pair(1, 9),
-                    0.5 to Pair(2, 8),
-                    1.0 to Pair(3, 4)
-                )
+                listOf(
+                    Slice(0.0,1,9),
+                    Slice(0.5,2,8),
+                    Slice(1.0,3,4),
+                    )
             ),
             FuzzyNumber(
                 "Table 2",
-                mutableMapOf(
-                    0.0 to Pair(1, 9),
-                    0.5 to Pair(3, 6),
-                    1.0 to Pair(4, 5),
-                    0.2 to Pair(2, 7)
+                listOf(
+                    Slice(0.0,1,9),
+                    Slice(0.5,3,6),
+                    Slice(1.0,4,5),
+                    Slice(0.2,2,7),
                 )
             ),
-            FuzzyNumber("Table 3", mutableMapOf())
+            FuzzyNumber("Table 3", listOf())
         )
         fuzzyNumbers.value = list
     }
@@ -36,5 +36,16 @@ class FuzzyNumberViewModel : ViewModel() {
         val currentList = fuzzyNumbers.value?.toMutableList()
         currentList?.set(index, fuzzyNumber)
         fuzzyNumbers.value = currentList
+    }
+
+    fun calculate(operation: Calculator.Operation):Int {
+        val currentList = fuzzyNumbers.value?.toMutableList()
+
+        if  (currentList == null) return -1
+        if (currentList[0].values.isEmpty()) return 1
+        if (currentList[1].values.isEmpty()) return 2
+
+        //Calculator.performOperation(operation, currentList[0], currentList[1], currentList[2])
+        return 0
     }
 }
