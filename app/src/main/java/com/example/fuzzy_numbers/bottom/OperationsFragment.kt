@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.fuzzy_numbers.R
 import com.example.fuzzy_numbers.data.Calculator.Operation
 import com.example.fuzzy_numbers.data.FuzzyNumberViewModel
+import com.example.fuzzy_numbers.helpers.NotifyHelpers
 
 class OperationsFragment : Fragment() {
 
@@ -26,10 +27,22 @@ class OperationsFragment : Fragment() {
         val buttonMultiply = view.findViewById<Button>(R.id.buttonMultiply)
         val buttonDivide = view.findViewById<Button>(R.id.buttonDivide)
 
-        buttonAdd.setOnClickListener { viewModel.calculate(Operation.ADD)  }
-        buttonSubtract.setOnClickListener { viewModel.calculate(Operation.SUBTRACT) }
-        buttonMultiply.setOnClickListener { viewModel.calculate(Operation.MULTIPLY) }
-        buttonDivide.setOnClickListener { viewModel.calculate(Operation.DIVIDE) }
+        buttonAdd.setOnClickListener {
+            viewModel.calculate(Operation.ADD)
+            NotifyHelpers.showSnackBarNotify(view, "The result was calculated", R.color.success)
+        }
+        buttonSubtract.setOnClickListener {
+            viewModel.calculate(Operation.SUBTRACT)
+            NotifyHelpers.showSnackBarNotify(view, "The result was calculated", R.color.success)
+        }
+        buttonMultiply.setOnClickListener {
+            viewModel.calculate(Operation.MULTIPLY)
+            NotifyHelpers.showSnackBarNotify(view, "The result was calculated", R.color.success)
+        }
+        buttonDivide.setOnClickListener {
+            viewModel.calculate(Operation.DIVIDE)
+            NotifyHelpers.showSnackBarNotify(view, "The result was calculated", R.color.success)
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

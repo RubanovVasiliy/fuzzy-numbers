@@ -48,10 +48,10 @@ class FuzzyNumberViewModel : ViewModel() {
         if (currentList == null || currentList.size != 3)
             return -1
 
-        if (currentList[0].values.isEmpty())
+        if (currentList[0].slices.isEmpty())
             return 1
 
-        if (currentList[1].values.isEmpty())
+        if (currentList[1].slices.isEmpty())
             return 2
 
         Calculator.performOperation(operation, currentList[0], currentList[1], currentList[2])
@@ -65,9 +65,9 @@ class FuzzyNumberViewModel : ViewModel() {
         if (currentList == null || currentList.size != 3)
             return -1
 
-        val temp = currentList[0].values
-        currentList[0].values = currentList[1].values
-        currentList[1].values = temp
+        val temp = currentList[0].slices
+        currentList[0].slices = currentList[1].slices
+        currentList[1].slices = temp
 
         updateFuzzyNumbers()
         return 0

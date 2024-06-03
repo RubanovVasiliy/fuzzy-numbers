@@ -34,7 +34,7 @@ class TableReadFragment : Fragment() {
 
         viewModel.fuzzyNumbers.observe(viewLifecycleOwner, Observer { list ->
             if (list.isNotEmpty()) {
-                adapter.updateData(list[2].values)
+                adapter.updateData(list[2].slices)
             }
         })
     }

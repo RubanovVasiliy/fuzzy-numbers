@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageButton
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fuzzy_numbers.R
 import com.example.fuzzy_numbers.data.FuzzyNumber
 import com.example.fuzzy_numbers.data.FuzzyNumberViewModel
-import com.google.android.material.snackbar.Snackbar
+import com.example.fuzzy_numbers.helpers.NotifyHelpers.Companion.showSnackBarNotify
 
 class TableEditFragment : Fragment() {
 
@@ -40,8 +39,8 @@ class TableEditFragment : Fragment() {
         val maxEditText: EditText = view.findViewById(R.id.maxEditText)
 
         viewModel.fuzzyNumbers.observe(viewLifecycleOwner, Observer { list ->
-            val adapter = TableEditAdapter(list[tableIndex].values) { alpha, min, max ->
-                val updatedList = list[tableIndex].values
+            val adapter = TableEditAdapter(list[tableIndex].slices) { alpha, min, max ->
+                val updatedList = list[tableIndex].slices
                 updatedList.find{it.alpha == alpha}?.max = max
                 updatedList.find{it.alpha == alpha}?.min = min
                 viewModel.updateFuzzyNumber(tableIndex, FuzzyNumber(list[tableIndex].name, updatedList))
@@ -70,7 +69,7 @@ class TableEditFragment : Fragment() {
 
                 val newMin = minEditText.text.toString().toDouble()
                 val newMax = maxEditText.text.toString().toDouble()
-                val updatedList = list[tableIndex].values
+                val updatedList = list[tableIndex].slices
                 updatedList.find{it.alpha == newAlpha}?.max = newMax
                 updatedList.find{it.alpha == newAlpha}?.min = newMin
                 viewModel.updateFuzzyNumber(tableIndex, FuzzyNumber(list[tableIndex].name, updatedList))
@@ -87,13 +86,6 @@ class TableEditFragment : Fragment() {
             args.putInt("INDEX", index)
             fragment.arguments = args
             return fragment
-        }
-
-        fun showSnackBarNotify(view: View, message: String, color: Int){
-            val snackBar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT).setAction("Action", null)
-            val sbView = snackBar.view
-            sbView.setBackgroundColor(ContextCompat.getColor(view.context, color));
-            snackBar.show()
         }
     }
 

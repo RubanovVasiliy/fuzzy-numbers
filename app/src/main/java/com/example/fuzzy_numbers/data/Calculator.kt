@@ -4,26 +4,6 @@ import java.math.RoundingMode
 
 class Calculator {
 
-/*    private fun setupChart(chart: LineChart) {
-        chart.description.isEnabled = false
-        chart.setTouchEnabled(true)
-        chart.isDragEnabled = true
-        chart.setScaleEnabled(true)
-        chart.setPinchZoom(true)
-
-        val xAxis: XAxis = chart.xAxis
-        xAxis.position = XAxis.XAxisPosition.BOTTOM
-
-        val leftAxis: YAxis = chart.axisLeft
-        leftAxis.setDrawGridLines(true)
-
-        val rightAxis: YAxis = chart.axisRight
-        rightAxis.setDrawGridLines(false)
-
-        val legend: Legend = chart.legend
-        legend.form = Legend.LegendForm.LINE
-    }*/
-
     companion object {
 
         private fun format(value: Double): Double{
@@ -32,11 +12,11 @@ class Calculator {
 
         fun performOperation(operation: Operation, numberA: FuzzyNumber, numberB: FuzzyNumber, result: FuzzyNumber) {
 
-            val commonAlphaLevels = (numberA.values.map { it.alpha } + numberB.values.map { it.alpha }).distinct().sorted()
-            val alignedA = alignAlphaLevels(numberA.values.sortedBy { it.alpha }, commonAlphaLevels)
-            val alignedB = alignAlphaLevels(numberB.values.sortedBy { it.alpha }, commonAlphaLevels)
+            val commonAlphaLevels = (numberA.slices.map { it.alpha } + numberB.slices.map { it.alpha }).distinct().sorted()
+            val alignedA = alignAlphaLevels(numberA.slices.sortedBy { it.alpha }, commonAlphaLevels)
+            val alignedB = alignAlphaLevels(numberB.slices.sortedBy { it.alpha }, commonAlphaLevels)
 
-            result.values = when (operation) {
+            result.slices = when (operation) {
                 Operation.ADD -> alignedA.zip(alignedB) { a, b ->
                     Slice(a.alpha, a.min + b.min, a.max + b.max)
                 }
@@ -56,8 +36,7 @@ class Calculator {
         }
 
         private fun interpolate(alpha1: Double, alpha2: Double, val1: Double, val2: Double, alpha: Double): Double {
-            return (val1 + (val2 - val1) * ((alpha - alpha1) / (alpha2 - alpha1)))
-                .toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
+            return format(val1 + (val2 - val1) * ((alpha - alpha1) / (alpha2 - alpha1)))
         }
 
         private fun alignAlphaLevels(numbers: List<Slice>, commonAlphaLevels: List<Double>): List<Slice> {
@@ -86,39 +65,13 @@ class Calculator {
                     }
                 }
             }
-
             return aligned
         }
     }
 
-    /*private fun updateChart(chart: LineChart, setA: List<FuzzyNumber>, setB: List<FuzzyNumber>, result: List<FuzzyNumber>) {
-        val entriesA = setA.map { Entry(it.alpha, (it.left  + it.right) / 2) }
-        val entriesB = setB.map { Entry(it.alpha, (it.left + it.right) / 2) }
-        val entriesResult = result.map { Entry(it.alpha, (it.left + it.right) / 2) }
-
-        val dataSetA = LineDataSet(entriesA, "Set A").apply {
-            color = resources.getColor(R.color.teal, null)
-            setCircleColor(color)
-        }
-        val dataSetB = LineDataSet(entriesB, "Set B").apply {
-            color = resources.getColor(R.color.purple, null)
-            setCircleColor(color)
-        }
-        val dataSetResult = LineDataSet(entriesResult, "Result").apply {
-            color = resources.getColor(R.color.orange, null)
-            setCircleColor(color)
-        }
-
-        val lineData = LineData(dataSetA, dataSetB, dataSetResult)
-        chart.data = lineData
-        chart.invalidate()
-    }*/
-
     enum class Operation {
         ADD, SUBTRACT, MULTIPLY, DIVIDE
     }
-
-
 }
 
 

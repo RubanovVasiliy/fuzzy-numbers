@@ -6,13 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.fuzzy_numbers.GraphActivity
 import com.example.fuzzy_numbers.R
-import com.example.fuzzy_numbers.data.Calculator
 import com.example.fuzzy_numbers.data.FuzzyNumberViewModel
+import com.example.fuzzy_numbers.helpers.NotifyHelpers.Companion.showSnackBarNotify
 
 class GraphFragment : Fragment() {
 
@@ -35,6 +34,9 @@ class GraphFragment : Fragment() {
             startActivity(intent)
         }
 
-        buttonExchange.setOnClickListener { viewModel.exchange() }
+        buttonExchange.setOnClickListener {
+            viewModel.exchange()
+            showSnackBarNotify(view, "Values have been exchanged", R.color.success)
+        }
     }
 }

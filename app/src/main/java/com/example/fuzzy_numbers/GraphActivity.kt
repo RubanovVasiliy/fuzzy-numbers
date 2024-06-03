@@ -49,7 +49,7 @@ class GraphActivity : AppCompatActivity() {
         val fuzzyNumbers = viewModel.fuzzyNumbers.value ?: return
         val result = fuzzyNumbers[2]
 
-        val entries = result.values.map { Entry(it.min.toFloat(), it.max.toFloat()) }
+        val entries = result.slices.map { Entry(it.min.toFloat(), it.max.toFloat()) }
 
         val dataSet = LineDataSet(entries, "Result")
         val lineData = LineData(dataSet)
