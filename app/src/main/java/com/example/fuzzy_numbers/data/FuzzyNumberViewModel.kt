@@ -39,13 +39,13 @@ class FuzzyNumberViewModel : ViewModel() {
     }
 
     fun updateFuzzyNumbers() {
-        _fuzzyNumbers.value = _fuzzyNumbers.value
+        _fuzzyNumbers.value = fuzzyNumbers.value
     }
 
     fun calculate(operation: Calculator.Operation): Int {
-        val currentList = _fuzzyNumbers.value?.toMutableList()
+        val currentList = fuzzyNumbers.value?.toMutableList()
 
-        if (currentList == null)
+        if (currentList == null || currentList.size != 3)
             return -1
 
         if (currentList[0].values.isEmpty())
@@ -55,6 +55,20 @@ class FuzzyNumberViewModel : ViewModel() {
             return 2
 
         Calculator.performOperation(operation, currentList[0], currentList[1], currentList[2])
+        updateFuzzyNumbers()
+        return 0
+    }
+
+    fun exchange() : Int {
+        val currentList = fuzzyNumbers.value?.toMutableList()
+
+        if (currentList == null || currentList.size != 3)
+            return -1
+
+        val temp = currentList[0].values
+        currentList[0].values = currentList[1].values
+        currentList[1].values = temp
+
         updateFuzzyNumbers()
         return 0
     }

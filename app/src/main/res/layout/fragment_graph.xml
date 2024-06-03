@@ -9,11 +9,11 @@
         android:id="@+id/buttonBuild"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Построить" />
+        android:text="@string/plot_button_text" />
 
     <Button
         android:id="@+id/buttonExchange"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Обменять значения" />
+        android:text="@string/exchange_button_text" />
 </LinearLayout>

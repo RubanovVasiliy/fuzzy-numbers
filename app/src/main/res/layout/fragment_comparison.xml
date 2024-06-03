@@ -23,7 +23,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text=">=" />
+            android:text="@string/great_equal" />
 
         <Button
             android:id="@+id/buttonLess"
@@ -51,19 +51,19 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="==" />
+            android:text="@string/equal" />
 
         <Button
             android:id="@+id/buttonNotEqual"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="!=" />
+            android:text="@string/not_equal" />
     </LinearLayout>
 
     <Button
         android:id="@+id/buttonCompare"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Сравнить" />
+        android:text="@string/compare_button_text" />
 </LinearLayout>
