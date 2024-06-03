@@ -40,6 +40,11 @@ android {
     }
 }
 
+repositories {
+    google()
+    mavenCentral()
+    maven { url = uri("https://jitpack.io:") }
+}
 
 dependencies {
     implementation(libs.androidx.core.ktx)
@@ -47,6 +52,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.recyclerview)
+    implementation ("com.github.AppDevNext:AndroidChart:3.1.0.22")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

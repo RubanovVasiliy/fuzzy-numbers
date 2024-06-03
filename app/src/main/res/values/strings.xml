@@ -1,5 +1,12 @@
 <resources>
-    <string name="app_name">fuzzy-numbers</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name"> </string>
+    <string name="less"><![CDATA[<]]></string>
+    <string name="great"><![CDATA[>]]></string>
+    <string name="less_equal"><![CDATA[<=]]></string>
+    <string name="exchange_button_text">Exchange A and B</string>
+    <string name="plot_button_text">Plot</string>
+    <string name="not_equal">!=</string>
+    <string name="equal">==</string>
+    <string name="compare_button_text">Compare</string>
+    <string name="great_equal"><![CDATA[>=]]></string>
 </resources>
