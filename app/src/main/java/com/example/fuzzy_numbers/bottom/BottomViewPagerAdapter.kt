@@ -7,14 +7,13 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 class BottomViewPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
 
     override fun getItemCount(): Int {
-        return 3
+        return 2
     }
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> OperationsFragment()
             1 -> ComparisonFragment()
-            2 -> GraphFragment()
             else -> throw IllegalStateException("Unexpected position $position")
         }
     }
