@@ -7,6 +7,6 @@
     <string name="plot_button_text">Plot</string>
     <string name="not_equal">!=</string>
     <string name="equal">==</string>
-    <string name="compare_button_text">Сравнить</string>
+    <string name="compare_button_text">Compare</string>
     <string name="great_equal"><![CDATA[>=]]></string>
 </resources>

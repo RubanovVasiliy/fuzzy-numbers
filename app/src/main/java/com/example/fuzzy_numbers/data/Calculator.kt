@@ -6,7 +6,7 @@ class Calculator {
 
     companion object {
 
-        private fun format(value: Double): Double{
+        private fun format(value: Double): Double {
             return value.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
         }
 
@@ -56,8 +56,20 @@ class Calculator {
                             val lowerInterval = numbers[i]
                             val upperInterval = numbers[i + 1]
 
-                            val lowerBound = interpolate(lowerAlpha, upperAlpha, lowerInterval.min, upperInterval.min, alpha)
-                            val upperBound = interpolate(lowerAlpha, upperAlpha, lowerInterval.max, upperInterval.max, alpha)
+                            val lowerBound = interpolate(
+                                lowerAlpha,
+                                upperAlpha,
+                                lowerInterval.min,
+                                upperInterval.min,
+                                alpha
+                            )
+                            val upperBound = interpolate(
+                                lowerAlpha,
+                                upperAlpha,
+                                lowerInterval.max,
+                                upperInterval.max,
+                                alpha
+                            )
 
                             aligned.add(Slice(alpha, lowerBound, upperBound))
                             break
@@ -66,6 +78,35 @@ class Calculator {
                 }
             }
             return aligned
+        }
+
+        fun compare(numberA: FuzzyNumber, numberB: FuzzyNumber) : Comparison{
+            val commonAlphaLevels = (numberA.slices.map { it.alpha } + numberB.slices.map { it.alpha }).distinct().sorted()
+            val alignedA = alignAlphaLevels(numberA.slices.sortedBy { it.alpha }, commonAlphaLevels)
+            val alignedB = alignAlphaLevels(numberB.slices.sortedBy { it.alpha }, commonAlphaLevels)
+
+            val intervals = alignedA.zip(alignedB)
+
+            val predicateGreater: (Pair<Slice, Slice>) -> Boolean =
+                { (a, b) -> a.min < b.min && a.max > b.min }
+            val predicateGreaterEqual: (Pair<Slice, Slice>) -> Boolean =
+                { (a, b) -> a.min <= b.min && a.max >= b.min }
+            val predicateLess: (Pair<Slice, Slice>) -> Boolean =
+                { (a, b) -> a.min > b.min && a.max < b.min }
+            val predicateLessEqual: (Pair<Slice, Slice>) -> Boolean =
+                { (a, b) -> a.min >= b.min && a.max <= b.min }
+            val predicateEqual: (Pair<Slice, Slice>) -> Boolean =
+                { (a, b) -> a.min == b.min && a.max == b.min }
+            val predicateNotEqual: (Pair<Slice, Slice>) -> Boolean =
+                { (a, b) -> a.min != b.min || a.max != b.min }
+
+            return Comparison(true, intervals.all(predicateGreater),
+                    intervals.all(predicateGreaterEqual),
+                    intervals.all(predicateLess),
+                    intervals.all(predicateLessEqual),
+                    intervals.all(predicateEqual),
+                    intervals.any(predicateNotEqual)
+            )
         }
     }
 

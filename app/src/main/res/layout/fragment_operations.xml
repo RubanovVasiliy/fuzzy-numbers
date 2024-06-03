@@ -14,33 +14,41 @@
         android:layout_width="match_parent">
         
     <TableRow android:layout_width="0dp">
+
         <Button
             android:id="@+id/buttonAdd"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="200px"
             android:layout_weight="1"
-            android:text="+" />
+            android:text="+"
+            android:textSize="48sp" />
         <Button
             android:id="@+id/buttonSubtract"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="200px"
             android:layout_weight="1"
-            android:text="-" />
+            android:text="-"
+            android:textSize="48sp" />
+
     </TableRow>
     <TableRow android:layout_width="0dp">
         <Button
             android:id="@+id/buttonMultiply"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="200px"
             android:layout_weight="1"
-            android:text="*" />
+            android:text="*"
+            android:textSize="48sp" />
+
 
         <Button
             android:id="@+id/buttonDivide"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="200px"
             android:layout_weight="1"
-            android:text="/" />
+            android:text="/"
+            android:textSize="48sp" />
+
     </TableRow>
     </TableLayout>
     

@@ -36,9 +36,7 @@ class PlotResultFragment : Fragment() {
         Plotter.setupChart(lineChart)
 
         viewModel.fuzzyNumbers.observe(viewLifecycleOwner, Observer { list ->
-            run {
-                drawChart(lineChart)
-            }
+            drawChart(lineChart)
         })
     }
 
@@ -48,11 +46,16 @@ class PlotResultFragment : Fragment() {
         val fuzzyNumbers = viewModel.fuzzyNumbers.value ?: return
         val result = fuzzyNumbers[2]
 
-        val entries1 = result.slices.map { Entry(it.alpha.toFloat(), it.max.toFloat()) }
-        val entries2 = result.slices.map { Entry(it.alpha.toFloat(), it.min.toFloat()) }
+        val entries1 = result.slices.map { Entry(it.max.toFloat(), it.alpha.toFloat()) }
+        val entries2 = result.slices.map { Entry(it.min.toFloat(), it.alpha.toFloat()) }
 
-        val dataSet = LineDataSet(entries1 + entries2, "Result")
+        val dataSet = LineDataSet(entries1 + entries2.reversed(), "Result")
+        dataSet.lineWidth = 5f
+        dataSet.color = R.color.warning
+        dataSet.setDrawCircles(true)
+
         val lineData = LineData(dataSet)
+
         chart.data = lineData
         chart.invalidate()
     }

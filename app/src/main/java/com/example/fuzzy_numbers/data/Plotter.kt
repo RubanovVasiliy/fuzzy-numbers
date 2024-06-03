@@ -17,7 +17,7 @@ class Plotter {
             xAxis.position = XAxis.XAxisPosition.BOTTOM
 
             val leftAxis: YAxis = chart.axisLeft
-            leftAxis.setDrawGridLines(true)
+            leftAxis.setDrawGridLines(false)
 
             val rightAxis: YAxis = chart.axisRight
             rightAxis.setDrawGridLines(false)
